@@ -4,7 +4,7 @@
 
 * Course Instructors:
   * Lachlan Deer (@lachlandeer)
-  * Matteo Courthoud
+  * Matteo Courthoud (matteocourthoud)
   * Ulrich Bergmann (@bergmul)
 
 *   Course Syllabus: [click here](pp4rs-syllabus.pdf)
