@@ -1,0 +1,205 @@
+state,year,period,value,footnotes
+Florida,2016,M12,467212,Reflects revised population controls and model reestimation.
+Florida,2016,M11,473563,Reflects revised population controls and model reestimation.
+Florida,2016,M10,490603,Reflects revised population controls and model reestimation.
+Florida,2016,M09,508834,Reflects revised population controls and model reestimation.
+Florida,2016,M08,509388,Reflects revised population controls and model reestimation.
+Florida,2016,M07,508776,Reflects revised population controls and model reestimation.
+Florida,2016,M06,497771,Reflects revised population controls and model reestimation.
+Florida,2016,M05,445147,Reflects revised population controls and model reestimation.
+Florida,2016,M04,450261,Reflects revised population controls and model reestimation.
+Florida,2016,M03,466631,Reflects revised population controls and model reestimation.
+Florida,2016,M02,460727,Reflects revised population controls and model reestimation.
+Florida,2016,M01,485449,Reflects revised population controls and model reestimation.
+Florida,2015,M12,469345,Reflects revised population controls and model reestimation.
+Florida,2015,M11,486139,Reflects revised population controls and model reestimation.
+Florida,2015,M10,498168,Reflects revised population controls and model reestimation.
+Florida,2015,M09,515981,Reflects revised population controls and model reestimation.
+Florida,2015,M08,536825,Reflects revised population controls and model reestimation.
+Florida,2015,M07,557088,Reflects revised population controls and model reestimation.
+Florida,2015,M06,543327,Reflects revised population controls and model reestimation.
+Florida,2015,M05,531573,Reflects revised population controls and model reestimation.
+Florida,2015,M04,502591,Reflects revised population controls and model reestimation.
+Florida,2015,M03,515163,Reflects revised population controls and model reestimation.
+Florida,2015,M02,529139,Reflects revised population controls and model reestimation.
+Florida,2015,M01,564169,Reflects revised population controls and model reestimation.
+Florida,2014,M12,526208,Reflects revised population controls and model reestimation.
+Florida,2014,M11,558404,Reflects revised population controls and model reestimation.
+Florida,2014,M10,570852,Reflects revised population controls and model reestimation.
+Florida,2014,M09,602230,Reflects revised population controls and model reestimation.
+Florida,2014,M08,638495,Reflects revised population controls and model reestimation.
+Florida,2014,M07,644689,Reflects revised population controls and model reestimation.
+Florida,2014,M06,616487,Reflects revised population controls and model reestimation.
+Florida,2014,M05,605051,Reflects revised population controls and model reestimation.
+Florida,2014,M04,576595,Reflects revised population controls and model reestimation.
+Florida,2014,M03,626052,Reflects revised population controls and model reestimation.
+Florida,2014,M02,622271,Reflects revised population controls and model reestimation.
+Florida,2014,M01,630200,Reflects revised population controls and model reestimation.
+Florida,2013,M12,593159,Reflects revised population controls and model reestimation.
+Florida,2013,M11,619322,Reflects revised population controls and model reestimation.
+Florida,2013,M10,651689,Reflects revised population controls and model reestimation.
+Florida,2013,M09,679385,Reflects revised population controls and model reestimation.
+Florida,2013,M08,705116,Reflects revised population controls and model reestimation.
+Florida,2013,M07,722705,Reflects revised population controls and model reestimation.
+Florida,2013,M06,729810,Reflects revised population controls and model reestimation.
+Florida,2013,M05,684713,Reflects revised population controls and model reestimation.
+Florida,2013,M04,657955,Reflects revised population controls and model reestimation.
+Florida,2013,M03,676136,Reflects revised population controls and model reestimation.
+Florida,2013,M02,710978,Reflects revised population controls and model reestimation.
+Florida,2013,M01,773099,Reflects revised population controls and model reestimation.
+Florida,2012,M12,735933,Reflects revised population controls and model reestimation.
+Florida,2012,M11,730915,Reflects revised population controls and model reestimation.
+Florida,2012,M10,764746,Reflects revised population controls and model reestimation.
+Florida,2012,M09,787259,Reflects revised population controls and model reestimation.
+Florida,2012,M08,829830,Reflects revised population controls and model reestimation.
+Florida,2012,M07,858598,Reflects revised population controls and model reestimation.
+Florida,2012,M06,841419,Reflects revised population controls and model reestimation.
+Florida,2012,M05,792119,Reflects revised population controls and model reestimation.
+Florida,2012,M04,757997,Reflects revised population controls and model reestimation.
+Florida,2012,M03,787207,Reflects revised population controls and model reestimation.
+Florida,2012,M02,810363,Reflects revised population controls and model reestimation.
+Florida,2012,M01,835499,Reflects revised population controls and model reestimation.
+Florida,2011,M12,834614,
+Florida,2011,M11,846475,
+Florida,2011,M10,889933,
+Florida,2011,M09,934233,
+Florida,2011,M08,961702,
+Florida,2011,M07,995233,
+Florida,2011,M06,976692,
+Florida,2011,M05,922110,
+Florida,2011,M04,900377,
+Florida,2011,M03,934511,
+Florida,2011,M02,958435,
+Florida,2011,M01,992528,
+Florida,2010,M12,989605,
+Florida,2010,M11,1032098,
+Florida,2010,M10,1012849,
+Florida,2010,M09,1036129,
+Florida,2010,M08,1069651,
+Florida,2010,M07,1061374,
+Florida,2010,M06,1012445,
+Florida,2010,M05,965840,
+Florida,2010,M04,974509,
+Florida,2010,M03,1006869,
+Florida,2010,M02,1018112,
+Florida,2010,M01,1041406,
+Florida,2009,M12,996083,
+Florida,2009,M11,988736,
+Florida,2009,M10,1003589,
+Florida,2009,M09,1010453,
+Florida,2009,M08,1012048,
+Florida,2009,M07,1007348,
+Florida,2009,M06,985114,
+Florida,2009,M05,924241,
+Florida,2009,M04,867867,
+Florida,2009,M03,881011,
+Florida,2009,M02,861402,
+Florida,2009,M01,822526,
+Florida,2008,M12,740478,
+Florida,2008,M11,698579,
+Florida,2008,M10,673848,
+Florida,2008,M09,659033,
+Florida,2008,M08,664209,
+Florida,2008,M07,631543,
+Florida,2008,M06,571015,
+Florida,2008,M05,509946,
+Florida,2008,M04,443154,
+Florida,2008,M03,454615,
+Florida,2008,M02,441018,
+Florida,2008,M01,452879,
+Florida,2007,M12,426626,
+Florida,2007,M11,407341,
+Florida,2007,M10,404959,
+Florida,2007,M09,414185,
+Florida,2007,M08,409870,
+Florida,2007,M07,409948,
+Florida,2007,M06,377574,
+Florida,2007,M05,318110,
+Florida,2007,M04,301375,
+Florida,2007,M03,299029,
+Florida,2007,M02,309536,
+Florida,2007,M01,329698,
+Florida,2006,M12,290658,
+Florida,2006,M11,303974,
+Florida,2006,M10,290815,
+Florida,2006,M09,316811,
+Florida,2006,M08,329695,
+Florida,2006,M07,330808,
+Florida,2006,M06,305331,
+Florida,2006,M05,267733,
+Florida,2006,M04,250741,
+Florida,2006,M03,256666,
+Florida,2006,M02,269433,
+Florida,2006,M01,275513,
+Florida,2005,M12,265692,
+Florida,2005,M11,311487,
+Florida,2005,M10,297884,
+Florida,2005,M09,325550,
+Florida,2005,M08,326715,
+Florida,2005,M07,342810,
+Florida,2005,M06,339106,
+Florida,2005,M05,308750,
+Florida,2005,M04,305456,
+Florida,2005,M03,325166,
+Florida,2005,M02,352407,
+Florida,2005,M01,362923,
+Florida,2004,M12,358172,
+Florida,2004,M11,379605,
+Florida,2004,M10,389637,
+Florida,2004,M09,403380,
+Florida,2004,M08,406810,
+Florida,2004,M07,425351,
+Florida,2004,M06,421886,
+Florida,2004,M05,373439,
+Florida,2004,M04,360743,
+Florida,2004,M03,388409,
+Florida,2004,M02,377643,
+Florida,2004,M01,401164,
+Florida,2003,M12,368694,
+Florida,2003,M11,403315,
+Florida,2003,M10,406203,
+Florida,2003,M09,441712,
+Florida,2003,M08,463267,
+Florida,2003,M07,468390,
+Florida,2003,M06,480002,
+Florida,2003,M05,418903,
+Florida,2003,M04,401971,
+Florida,2003,M03,410636,
+Florida,2003,M02,421886,
+Florida,2003,M01,445592,
+Florida,2002,M12,426632,
+Florida,2002,M11,438827,
+Florida,2002,M10,436226,
+Florida,2002,M09,456576,
+Florida,2002,M08,484292,
+Florida,2002,M07,487998,
+Florida,2002,M06,480905,
+Florida,2002,M05,437325,
+Florida,2002,M04,443774,
+Florida,2002,M03,454974,
+Florida,2002,M02,460374,
+Florida,2002,M01,488815,
+Florida,2001,M12,469155,
+Florida,2001,M11,476113,
+Florida,2001,M10,470074,
+Florida,2001,M09,390060,
+Florida,2001,M08,400104,
+Florida,2001,M07,372619,
+Florida,2001,M06,362512,
+Florida,2001,M05,315166,
+Florida,2001,M04,316028,
+Florida,2001,M03,312674,
+Florida,2001,M02,297322,
+Florida,2001,M01,313332,
+Florida,2000,M12,264489,
+Florida,2000,M11,278970,
+Florida,2000,M10,285306,
+Florida,2000,M09,312109,
+Florida,2000,M08,333654,
+Florida,2000,M07,326284,
+Florida,2000,M06,319304,
+Florida,2000,M05,280011,
+Florida,2000,M04,254983,
+Florida,2000,M03,273276,
+Florida,2000,M02,274179,
+Florida,2000,M01,288400,

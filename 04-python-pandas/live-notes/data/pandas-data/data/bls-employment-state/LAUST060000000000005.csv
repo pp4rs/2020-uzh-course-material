@@ -1,0 +1,205 @@
+state,year,period,value,footnotes
+California,2016,M12,18141342,Reflects revised population controls and model reestimation.
+California,2016,M11,18193752,Reflects revised population controls and model reestimation.
+California,2016,M10,18193795,Reflects revised population controls and model reestimation.
+California,2016,M09,18181708,Reflects revised population controls and model reestimation.
+California,2016,M08,18109246,Reflects revised population controls and model reestimation.
+California,2016,M07,18094177,Reflects revised population controls and model reestimation.
+California,2016,M06,18046023,Reflects revised population controls and model reestimation.
+California,2016,M05,18080448,Reflects revised population controls and model reestimation.
+California,2016,M04,18010899,Reflects revised population controls and model reestimation.
+California,2016,M03,17980341,Reflects revised population controls and model reestimation.
+California,2016,M02,17945007,Reflects revised population controls and model reestimation.
+California,2016,M01,17803776,Reflects revised population controls and model reestimation.
+California,2015,M12,17842631,Reflects revised population controls and model reestimation.
+California,2015,M11,17837680,Reflects revised population controls and model reestimation.
+California,2015,M10,17841943,Reflects revised population controls and model reestimation.
+California,2015,M09,17784349,Reflects revised population controls and model reestimation.
+California,2015,M08,17762355,Reflects revised population controls and model reestimation.
+California,2015,M07,17738251,Reflects revised population controls and model reestimation.
+California,2015,M06,17737117,Reflects revised population controls and model reestimation.
+California,2015,M05,17784721,Reflects revised population controls and model reestimation.
+California,2015,M04,17691245,Reflects revised population controls and model reestimation.
+California,2015,M03,17599231,Reflects revised population controls and model reestimation.
+California,2015,M02,17576106,Reflects revised population controls and model reestimation.
+California,2015,M01,17483563,Reflects revised population controls and model reestimation.
+California,2014,M12,17521352,Reflects revised population controls and model reestimation.
+California,2014,M11,17556197,Reflects revised population controls and model reestimation.
+California,2014,M10,17582732,Reflects revised population controls and model reestimation.
+California,2014,M09,17486929,Reflects revised population controls and model reestimation.
+California,2014,M08,17385351,Reflects revised population controls and model reestimation.
+California,2014,M07,17356989,Reflects revised population controls and model reestimation.
+California,2014,M06,17351792,Reflects revised population controls and model reestimation.
+California,2014,M05,17346964,Reflects revised population controls and model reestimation.
+California,2014,M04,17259929,Reflects revised population controls and model reestimation.
+California,2014,M03,17194358,Reflects revised population controls and model reestimation.
+California,2014,M02,17122102,Reflects revised population controls and model reestimation.
+California,2014,M01,17019049,Reflects revised population controls and model reestimation.
+California,2013,M12,17057695,Reflects revised population controls and model reestimation.
+California,2013,M11,17077760,Reflects revised population controls and model reestimation.
+California,2013,M10,17010656,Reflects revised population controls and model reestimation.
+California,2013,M09,17088933,Reflects revised population controls and model reestimation.
+California,2013,M08,17021554,Reflects revised population controls and model reestimation.
+California,2013,M07,16999909,Reflects revised population controls and model reestimation.
+California,2013,M06,16980661,Reflects revised population controls and model reestimation.
+California,2013,M05,17016340,Reflects revised population controls and model reestimation.
+California,2013,M04,16925324,Reflects revised population controls and model reestimation.
+California,2013,M03,16820663,Reflects revised population controls and model reestimation.
+California,2013,M02,16802060,Reflects revised population controls and model reestimation.
+California,2013,M01,16703259,Reflects revised population controls and model reestimation.
+California,2012,M12,16797526,Reflects revised population controls and model reestimation.
+California,2012,M11,16815181,Reflects revised population controls and model reestimation.
+California,2012,M10,16848344,Reflects revised population controls and model reestimation.
+California,2012,M09,16783154,Reflects revised population controls and model reestimation.
+California,2012,M08,16621559,Reflects revised population controls and model reestimation.
+California,2012,M07,16583630,Reflects revised population controls and model reestimation.
+California,2012,M06,16587936,Reflects revised population controls and model reestimation.
+California,2012,M05,16597694,Reflects revised population controls and model reestimation.
+California,2012,M04,16493709,Reflects revised population controls and model reestimation.
+California,2012,M03,16434011,Reflects revised population controls and model reestimation.
+California,2012,M02,16388435,Reflects revised population controls and model reestimation.
+California,2012,M01,16280881,Reflects revised population controls and model reestimation.
+California,2011,M12,16432126,
+California,2011,M11,16444996,
+California,2011,M10,16425710,
+California,2011,M09,16387273,
+California,2011,M08,16301498,
+California,2011,M07,16212774,
+California,2011,M06,16201173,
+California,2011,M05,16260988,
+California,2011,M04,16204892,
+California,2011,M03,16138231,
+California,2011,M02,16082636,
+California,2011,M01,16005295,
+California,2010,M12,16116806,
+California,2010,M11,16118593,
+California,2010,M10,16160340,
+California,2010,M09,16196643,
+California,2010,M08,16171990,
+California,2010,M07,16115939,
+California,2010,M06,16123264,
+California,2010,M05,16178497,
+California,2010,M04,16156408,
+California,2010,M03,15970655,
+California,2010,M02,15931087,
+California,2010,M01,15863115,
+California,2009,M12,15940443,
+California,2009,M11,16047439,
+California,2009,M10,16049503,
+California,2009,M09,16080505,
+California,2009,M08,16149025,
+California,2009,M07,16185170,
+California,2009,M06,16206959,
+California,2009,M05,16260585,
+California,2009,M04,16300947,
+California,2009,M03,16257780,
+California,2009,M02,16339886,
+California,2009,M01,16372621,
+California,2008,M12,16629680,
+California,2008,M11,16748815,
+California,2008,M10,16863303,
+California,2008,M09,16873297,
+California,2008,M08,16873372,
+California,2008,M07,16908797,
+California,2008,M06,16922825,
+California,2008,M05,16932233,
+California,2008,M04,16936957,
+California,2008,M03,16865764,
+California,2008,M02,16854691,
+California,2008,M01,16844050,
+California,2007,M12,16957504,
+California,2007,M11,17020073,
+California,2007,M10,16993192,
+California,2007,M09,17003870,
+California,2007,M08,16958142,
+California,2007,M07,16981299,
+California,2007,M06,16958054,
+California,2007,M05,16922244,
+California,2007,M04,16863748,
+California,2007,M03,16884325,
+California,2007,M02,16839213,
+California,2007,M01,16797415,
+California,2006,M12,16973698,
+California,2006,M11,16945533,
+California,2006,M10,16962339,
+California,2006,M09,16876453,
+California,2006,M08,16864833,
+California,2006,M07,16812330,
+California,2006,M06,16787870,
+California,2006,M05,16748686,
+California,2006,M04,16686169,
+California,2006,M03,16643163,
+California,2006,M02,16616413,
+California,2006,M01,16555574,
+California,2005,M12,16684971,
+California,2005,M11,16681350,
+California,2005,M10,16744240,
+California,2005,M09,16701783,
+California,2005,M08,16722085,
+California,2005,M07,16662897,
+California,2005,M06,16592894,
+California,2005,M05,16583947,
+California,2005,M04,16520108,
+California,2005,M03,16404850,
+California,2005,M02,16378380,
+California,2005,M01,16314303,
+California,2004,M12,16449459,
+California,2004,M11,16460854,
+California,2004,M10,16455724,
+California,2004,M09,16388117,
+California,2004,M08,16400705,
+California,2004,M07,16365070,
+California,2004,M06,16279135,
+California,2004,M05,16247363,
+California,2004,M04,16197061,
+California,2004,M03,16142848,
+California,2004,M02,16162682,
+California,2004,M01,16098932,
+California,2003,M12,16195161,
+California,2003,M11,16182020,
+California,2003,M10,16187108,
+California,2003,M09,16108756,
+California,2003,M08,16110724,
+California,2003,M07,16069631,
+California,2003,M06,16100550,
+California,2003,M05,16091934,
+California,2003,M04,16088544,
+California,2003,M03,16047704,
+California,2003,M02,16058718,
+California,2003,M01,15993228,
+California,2002,M12,16109678,
+California,2002,M11,16088557,
+California,2002,M10,16203736,
+California,2002,M09,16211501,
+California,2002,M08,16160352,
+California,2002,M07,16104603,
+California,2002,M06,16104987,
+California,2002,M05,16133926,
+California,2002,M04,16072940,
+California,2002,M03,16068994,
+California,2002,M02,16103273,
+California,2002,M01,15941676,
+California,2001,M12,16143866,
+California,2001,M11,16124108,
+California,2001,M10,16198966,
+California,2001,M09,16198098,
+California,2001,M08,16152246,
+California,2001,M07,16229960,
+California,2001,M06,16208083,
+California,2001,M05,16230877,
+California,2001,M04,16215760,
+California,2001,M03,16255569,
+California,2001,M02,16234695,
+California,2001,M01,16179822,
+California,2000,M12,16286486,
+California,2000,M11,16184324,
+California,2000,M10,16184317,
+California,2000,M09,16107485,
+California,2000,M08,16100302,
+California,2000,M07,16039227,
+California,2000,M06,16043536,
+California,2000,M05,15969433,
+California,2000,M04,15977142,
+California,2000,M03,15894584,
+California,2000,M02,15857868,
+California,2000,M01,15753440,
