@@ -1,0 +1,6 @@
+"GDP", nominal gdp
+"IMPGS", imports of goods and services
+"EXPGS", exports of goods and services
+"IMPCH", imports from china
+"GS1",  1 year T-bill rate
+"CPILFESL" CPI without energy and food
