@@ -1,0 +1,398 @@
+---
+title: "Data Transformations with `dplyr` and `tidyr`"
+author: "Ulrich Bergmann"
+date: "7 February 2020"
+output: pdf_document
+---
+It is rare that we obtain a data set and it looks exactly as we want it. Usually, we drop variables, transform variables, merge data etc. While it is possible to perform these tasks using base R, there is now a package called `dplyr` which simplifies them enormously. Before we actually start working with it, we have to clean our workspace and load some packages. 
+
+
+```{r, message = FALSE, warning=FALSE}
+rm(list = ls())   # remove all objects from workspace
+library(tibble)   # nicer dataframes
+library(dplyr)    # data transformations
+library(Ecdat)    # Econ datasets
+```
+
+While we are at it, let us also load a dataset that we will use in the following. It contains a cross-section of 601 individuals in the United States, some of their characteristics and how many extramarital affairs they had in the past year.  
+```{r}
+affairs = as_data_frame(Fair)
+glimpse(affairs)
+```
+
+As you can see, the dataframe contains 9 variables. 
+
++ __sex__: factor: male or female
++ __age__: age in years
++ __ym__: number of years married
++ __child__: factor: yes or no?
++ __religious__: How religious from 1 (anti) to 5 (very)? 
++ __education__: education in years
++ __occupation__: occupation, from 1 to 7, according to hollingshead classification
++ __rate__: self rating of marriage, from 1 (very unhappy) to 5 (very happy)
++ __nbaffairs__: number of affairs in past year
+
+## 1 Single table verbs
+The `dplyr` package contains a number of single-table verbs which can be used to handle most of the day-to-day data work. The structure of the commands is always the same: `verb(dataframe, operation)`. The output of the functions is again a dataframe. Let's look at each of the verbs in turn. We start with `filter`.
+
+### 1.1 `filter` to filter observations
+Filter can be used to select a subset of observations based on the truth value of a condition. Let's say that we are only interested in the affairs of men. 
+
+```{r}
+filter(affairs, sex == "male")
+```
+As you can see, this gives us dataframe which just contains the observations for men. So, far we have just applied the function `filter` but have not saved the result anywhere. We need to assign it to a new dataframe or reassign it to the existing one. 
+
+```{r}
+affairs_men = filter(affairs, sex == "male")
+head(affairs_men)
+```
+
+We can of course add further conditions. Let's say we are only interested in men without children.
+
+```{r}
+affairs_childless_men = filter(affairs, sex == "male", child == "no")
+head(affairs_childless_men)
+```
+
+You can add as many conditions as you want, these are then linked by a logical 'and'. You can also create more complicated statements with the following logical and relational operators:
+
++ `==` equal
++ `!=` not equal
++ `!` not 
++ `&` and
++ `|` or 
++ `>` greater
++ `<` smaller
++ `>=` greater or equal
++ `<=` smaller or equal
+
+So, let's say we want to have the very religious, childless men. This can be accomplished as follows: 
+
+```{r}
+affairs_childless_zealots = filter(affairs, sex == "male", child == "no", religious == 4 | religious == 5)
+```
+
+So, there you go. One last thing. Sometimes you have missing values in your dataframe, which are denoted as `NA`s (not available). I will create a small dataframe for us in the following. 
+
+```{r}
+na_df = tibble(
+  x = c(1:10),
+  y = c(1:2, NA, NA, 3:8)
+)
+na_df
+```
+
+To check for `NA`, we can use the function `is.na` which returns either `TRUE` or `FALSE`. We can exploit this, if we want to filter `NA`s out. 
+```{r}
+filter(na_df, is.na(y))   # dataframe consisting of observations with NAs
+filter(na_df, !is.na(y))  # dataframe consisting of observations with non-missing values
+```
+
+### 1.2 `arrange` to arrange a dataframe according to variables
+Next in line, we have the `arrange` command. It can be used to change the order of a dataframe according to one or several variables. For example, assume we want to sort the dataframe by sex and age. 
+
+```{r}
+affairs = arrange(affairs, sex, age)
+```
+
+To change the direction of ordering, use the `desc` function. 
+
+```{r}
+affairs = arrange(affairs, sex, desc(age)) # sorted from old to young
+```
+
+And that is everything there is to know about the `arrange` function. 
+
+### 1.3 `select` to select/drop variables
+Our next verb can be used to select variables from a dataframe. Before we start, let me quickly get rid of the dataframes that we do not need anymore. 
+
+```{r}
+rm(affairs_childless_men, affairs_childless_zealots, affairs_men, na_df)
+```
+
+So, let's remind ourselves what is in our dataset. 
+
+```{r}
+head(affairs)
+```
+
+We now create a new dataset consisting only of the variables `sex`, `age`, `nbaffairs`. 
+
+```{r}
+head(select(affairs, sex, age, nbaffairs))
+```
+
+We could also have given the variables new names while selecting them.
+
+```{r}
+head(select(affairs, sex, age, number_of_affairs = nbaffairs))
+```
+
+Note however that there is a better function for renaming variables, `rename`, since it does not drop all the variables that are not explicitly mentioned. 
+
+```{r}
+head(rename(affairs, number_of_affairs = nbaffairs))
+```
+
+If you want to keep most variables but just get rid of some, you can use the minus sign. The following command will keep all variables except rate: 
+
+```{r}
+head(select(affairs, - rate))
+```
+
+Vertical slicing is also possible. To get all variables from `education` to `nbaffairs` you can write. The minus operator works here as well. 
+
+```{r}
+head(select(affairs, education:nbaffairs))
+head(select(affairs, -(education:nbaffairs)))
+```
+
+Note that select also works nicely to reorder the columns of a dataframe. For example, if we want to have the `nbaffairs` in first place, we can write. 
+
+```{r}
+head(select(affairs, nbaffairs, everything()))
+```
+
+The function `everthing` is a function to capture all other variables except the ones explicitly mentioned. There are also some other helper functions to select all variables that start, end, or contain with a certain string. 
+
++ starts_with("string")
++ ends_with("string")
++ contains("string")
++ matches("reg_expression")
+
+Here is one example. 
+```{r}
+head(select(affairs, starts_with("r")))
+```
+
+That's it. Now onwards to the `mutate` verb!
+
+### 1.4 `mutate` to create new variables 
+With `mutate` we can create new variables. For example, we might want to create a variable to capture the age at which a person got married. In our dataset we have two variables available to do just this: `age` (unfortunately, only measured in discrete steps, so our measure is somewhat imprecise) and `ym`. So, let's do it. 
+
+```{r}
+affairs = mutate(affairs, age_married = age - ym) 
+```
+
+You can use several functions to create new variables: 
+
++ arithmetic operators: `+, -, *, /, ^`
++ aggregate functions: you can use aggregate functions such as `sum` and `mean` which we will talk about later
++ `log`: to create variables in logs, you can use `log`, `log2`, and `log10`
++ offsets: you can use `lag` and `lead` to refer to leading or lagged values, provided that your data are grouped (more about that later)
++ logical comparisons: you can create Boolean variables using logical comparisons such as `<, <=, >=, !=, ==`. 
+
+### 1.5 `summarise` to create summary tables
+The last single-table verb, we'll get to know is summarise. It conjunction with aggregate functions  such as `mean` it can be used to collapse our dataframe. 
+
+```{r}
+summarise(affairs, age = mean(age, na.rm = TRUE))
+```
+As you can see, this collapses our dataframe to just one number, the average age of the persons in the sample. It gets more interesting if we structure our dataframe before applying `summarise`. Say we want to have the average age by sex. (By the way, why did we use the `na.rm` argument here?)
+
+```{r}
+affairs_grouped = group_by(affairs, sex)
+summarise(affairs_grouped, age = mean(age, na.rm = TRUE))
+```
+
+Aha! Now, we have the mean ages for both men and women! Let's go further by cross-tabulating sex and whether or not the person has children. 
+
+```{r}
+affairs_grouped = group_by(affairs, sex, child)
+summarise(affairs_grouped, age = mean(age, na.rm = TRUE))
+```
+
+As you can see the results of the `summarise` verb depend on how we grouped our data beforehand. You can ungroup a dataframe by using the `ungroup` function: 
+```{r}
+affairs_ungrouped = ungroup(affairs_grouped)
+summarise(affairs_ungrouped, age = mean(age, na.rm = TRUE)) # returns only one value again since data are ungrouped
+```
+
+Of course, `mean` is not the only aggregate function that we can use in combination with `summarise`. Here are some more:
+
++ `sum(x)`: create group-wise sum for variable `x`
++ `median(x)`: create group-wise median for variable `x`
++ `sd(x)`: group-wise standard deviation for variable `x`
++ `min(x)`: minimum by group for variable `x`
++ `max(x)`: see above
++ `quantile(x, v)`: vth quantile for variable `x` by group
++ `first(x)`: first x-value in group by group
++ `last(x)`: last x-value in group by group
++ `n()`: number of values in group by group 
++ `n_distinct(x)`: number of distinct values in group by group
+
+## 2 Using functions in combination with logical subsetting
+
+The Boolean values TRUE and FALSE are treated as 1 and 0, respectively. This makes them useful in combination with our aggregate functions. Say we want to have the total number of very religious people. We can use `summarize` for this. 
+```{r}
+summarise(affairs, no_very_religious = sum(religious >= 4))
+```
+How does this work? Well the expression `religious >= 4` produces a vector of the same length as `religious` with TRUE and FALSE values. If we sum over these values, we add a 1 for every observation for which the statement is true. 
+
+We can also use subsetting in a different way. Let's say we want to have the mean age of all those very religious people. We can then write: 
+```{r}
+summarise(affairs, mean_age = mean(age[religious >= 4]))
+```
+OK, let's try to understand this. The expression `age[religious >= 4]` selects only those observations from the age vector for which `religious >= 4` is true. Then, the mean of these observations is calculated. You might get a feeling now how powerful the interplay of logical subsetting and the functions can be. 
+
+## 3 The pipe operator
+Now that we understand `dplyr` a little better, let's make our code more beautiful and readible at the same time. I now introduce the pipe operator. Before, let's quickly get rid of our mess.
+
+```{r}
+rm(list = c("affairs_grouped", "affairs_ungrouped"))
+```
+
+We now have our original dataframe again. Let's say I want to select the variables `age`, `ym`, and `nbaffairs`, create the variable which gives us age at marriage and sort the data by the number of affairs and our new variables. The wordy way looks like this:
+
+```{r}
+affairs = select(affairs, age, ym, nbaffairs)
+affairs = mutate(affairs, age_married = age - ym)
+affairs = arrange(affairs, nbaffairs, age_married) 
+head(affairs)
+```
+Now, I don't know about you but I have the feeling that I wrote the word `affairs` way too many times. This is because we a) have to reassign the new dataframe to the old dataframe so many times and b) always have to make sure that R knows on which dataframe we are using our verbs. Here, using the pipe operator comes in handy. Let's first restore our original dataset.
+```{r}
+affairs = as_data_frame(Fair) # restore dataframe
+```
+We can alternatively write the code as: 
+```
+affairs = affairs %>%
+  select(age, ym, nbaffairs) %>%
+  mutate(age_married = age - ym) %>%
+  arrange(nbaffairs, age_married)
+head(affairs)
+```
+Now, this look much nicer, right? We can skip the tedious reassignments and also don't have to tell R on which dataframe we want to operate. You can read this as follows: 
+
+1. Take the affairs dataframe and apply the `select` verb on it. The result is a new dataframe with the three variables. 
+2. Take this dataframe of three variables and apply the `mutate` verb to it. The result is a new dataframe which also includes the variable age_married. 
+3. Take the new dataframe and apply the `arrange` verb to it. The result is a new dataframe. 
+4. Assign this new dataframe to our variable `affairs`.
+
+Neat, eh? Piping works so nicely, because the input and output of `dplyr` verbs is always a dataframe. You can use the pipe operator also with other packages and we will use it when it is reasonable to do so. 
+
+## 4 Multiple table verbs
+`Dplyr` also features verbs which you can apply to two tables. These are usually functions to join or merge two datasets. 
+
+### 4.1 Mutating joins
+Mutating joins allow you to combine variables from multiple tables. To see how they work, let's create two small tibbles. 
+```{r}
+first_df = tibble(
+  country = c('Afghanistan', 'Belgium', 'China', 'Denmark'),
+  population = c(33369945, 11371928, 1382323332, 5690750)
+)
+
+# gdp in millions
+second_df = tibble(
+  country = c('Afghanistan', 'Belgium', 'Denmark', 'Germany'),
+  gdp = c(35146, 422809, 211916, 3232545)
+)
+
+head(first_df)
+head(second_df)
+```
+
+#### 4.1.1 `left_join`
+The `left_join` function matches rows from the second dataframe to the first dataframe. All rows from the first dataframe are kept. 
+```{r}
+left_join(first_df, second_df, by = "country")
+```
+
+#### 4.1.2 `right_join`
+The `right_join` function does exactly the opposite. It matches rows from the second dataframe to the first dataframe. All rows from the second dataframe are kept. 
+```{r}
+right_join(first_df, second_df, by = "country")
+```
+
+#### 4.1.3 `inner_join`
+The `inner_join` function joins the data from both dataframes but only keeps those observations which exist in both dataframes. 
+```{r}
+inner_join(first_df, second_df, by = "country")
+```
+
+#### 4.1.4 `full_join`
+The `full_join` function also joins the data from both dataframes but keeps all observations. 
+```{r}
+full_join(first_df, second_df, by = "country")
+```
+
+### 4.2 Filtering joins
+Filtering joins are helpful if you want to filter the observations in one dataset based on whether they exist in the other dataset. 
+
+#### 4.2.1 `semi_join`
+The `semi_join` function keeps all observations in the first dataframe which also exist in the second. 
+```{r}
+semi_join(first_df, second_df, by = "country")
+```
+
+#### 4.2.2 `anti_join`
+The `anti_join` function drops all observations in the first dataframe which also exist in the second. 
+```{r}
+anti_join(first_df, second_df, by = "country")
+```
+
+### 4.3 The `by` argument
+The `by` argument controls by what variables two dataframes are matched. If you do not specify it, `dplyr` uses all variables that exist in both tables, a so-called natural join. In our examples we could also have left the `by` argument unspecified since both dataframes only share the variable `country`. 
+
+You can also pass character vector to specify by which variable the two dataframes are supposed to be matched. This is what we did in the preceding examples. 
+
+Finally, what to do if the variable by which you want to match has different names in the two dataframes. Use a named character vector!
+
+```{r}
+first_df = tibble(
+  country = c('Afghanistan', 'Belgium', 'China', 'Denmark'),
+  population = c(33369945, 11371928, 1382323332, 5690750)
+)
+
+# gdp in millions
+second_df = tibble(
+  country_name = c('Afghanistan', 'Belgium', 'Denmark', 'Germany'),
+  gdp = c(35146, 422809, 211916, 3232545)
+)
+
+full_join(first_df, second_df, by = c('country' = 'country_name'))
+```
+As you can see, this matched variable `country` in our first dataframe with `country_name` in our second dataframe. The variable name for the resulting dataframe is `country`.
+
+## 5 Reshaping data with `tidyr`
+Another thing that happens very often is that the datasets we obtain are not in the right format. What do I mean by 'right' here? You already talked with Lachlan about this but some basic principles are: 
+
+1. Every row is an observation. 
+2. Every column is a variable.
+3. Each cell contains the value of a variable for a specific observation. 
+
+Datasets which conform to these three principles are called `tidy` in the `R` world. There is now package called `tidyr` which helps you in converting untidy datasets to tidy ones. 
+```{r}
+library(tidyr)
+```
+
+In the following we will look at two cases which I will call dirty wide and dirty long datasets. 
+
+### 5.1 From dirty wide to tidy long
+Have a look at the following small dataset, containing population data. 
+```{r}
+dirty_wide = as_data_frame(table4a)
+head(dirty_wide)
+```
+Are these tidy? No! First of all, we have column names which are actually variable values: 1999 and 2000. Secondly, it is not clear what data the cells contain. To reshape the data from dirty long to tidy long, we use the `gather` command.
+```{r}
+gather(dirty_wide, `1999`, `2000`, key = 'year', value = 'population')
+```
+How did this work? The first argument is the name of the dataset. The following arguments are the column names which are actually the values of a variable. We want these values to be stored in a variable called `year` so we write: `key = 'year'`. 'Key' in this context is just another word for variable name. Finally, we specify the variable name `population` for the values in our cells by writing `value = 'population'`. The result is a tidy long dataframe. 
+
+### 5.2 From dirty long to tidy wide
+We can also have a dirty long dataframe. Look at the following tibble. 
+```{r}
+dirty_long = as_data_frame(table2)
+head(dirty_long)
+```
+Again this dataframe is not tidy.  The variable `tidy` contains variable names and the `count` variable the corresponding values. We want to reshape these data and create two variables `cases` and `population` with the cells containing the corresponding values. This can be accomplished using the `spread` command. 
+```{r}
+spread(dirty_long, key = type, value = count)
+```
+The first argument is the name of the dataframe again. Secondly, we specify the column, `type` in this case, which contains the variable names or keys. Finally, we specify the variable, `count`, which contains the values of the variables. The resulting dataframe is tidy again. 
+
+# Sources
+These notes were created by Julian Langer for the 2019 edition of PP4RS (https://pp4rs.github.io/2019-foundations-uzh/) and have only been minorly updated.
+You can find the cheat sheet for `dplyr` and `tidyr` here: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf. If you want to know more about the principles underlying tidy data, have a look at the following article by Hadley Wickham: https://www.jstatsoft.org/article/view/v059i10. There is also another packages called `reshape2` which can do everything that `tidyr` can and more: https://cran.r-project.org/web/packages/reshape2/index.html. 
