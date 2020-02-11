@@ -1,0 +1,70 @@
+---
+title: "R Project - Replicating ADH Regressions"
+author:
+  - Ulrich Bergmann
+  - Lachlan Deer
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Let's first load the necessary packages to read data and do fancy regressions:
+
+```{r, eval = FALSE}
+library("readr")
+library("tibble")
+library("sandwich")
+library("lmtest")
+```
+
+And let's load the data like we always do:
+
+```{r, eval = FALSE}
+df = read_csv("data/adh_data.csv")
+```
+
+## 1. OLS regression
+
+The core of the paper is looking at what happened to laborer's when theres an increase in us imports from china. 
+Let's try and replicate part of Table 9 - namely the estimate from panel A column 2.
+
+Their y variable is `relchg_avg_hhincwage_pc_pw`. 
+The important x variable is decadal trade between the us and china `d_tradeusch_pw`.
+
+1. Run that simple regression
+2. Now add heteroskedasticity robust standard  (HC1). Hint: Use the `sandwich` and `lmtest` packages
+
+Now we will start to add extra x variables.
+
+3. Start by adding `t2` - a dummy variable for whether observation is in the second decade. 
+Fit again with HC1 robust standard errors.
+
+## 2. Clustering
+
+Let us now use clustertered standard errors instead. ADH cluster by `statefip`.
+Hint: use the `felm` package.
+
+1. Run the basic regression with clustering
+2. Add the following controls to your last regression:
+    - `l_shind_manuf_cbp`
+    - `l_sh_popedu_c`
+    - `l_sh_popfborn`
+    - `l_sh_empl_f`
+    - `l_sh_routine33`
+    - `l_task_outsource`
+
+3. Add region fixed effects to your regression.
+    - First find all variables in the dataset that start with `reg_`
+    - Add these to your last regression
+  
+## 3. Instrument Variables
+
+1. Instrument `d_tradeusch_pw` with `d_tradeotch_pw_lag` in your last regression
+2. Weight your regression by `timepwt48`
+
+
+
+
+
