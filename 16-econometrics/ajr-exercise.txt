@@ -1,0 +1,21 @@
+# Replicating Results from AJR
+
+Goal of exercise: replicate some results from
+
+The Colonial Origins of Comparative Development: An Empirical Investigation
+by Acemoglu, Johnson and Robinson AER 2001.
+
+The link to where data is stored is here:
+https://economics.mit.edu/faculty/acemoglu/data/ajr2001
+
+1. Download the data from above to construct results from Table 2 (maketable2.dta)
+2. Regress log gdp per capita in 95 (logpgp95) against average expropriation risk (avexpr)
+3. Extend (2) by adding latitude
+4. Extend (3) by adding factor variables for Asia, Africa and "other continent"
+5. Present the results from 2 - 4 in a stargazer table
+6. Modify (5) so you have robust standard errors (try HC2)  for each model.
+7. Download the data for Table 4 (maketable4.dta)
+8. Estimate an IV regression of log gdp per capita in 95 on average expropriation risk. Use Settler mortality as the instrument (logem4). Only use data where baseco ==1.
+9. Repeat 3,4 for the IV regression
+10. Make a stargazer table that compares the IV and OLS results with robust standard errors
+11. What were the F-statistics for the first stage regressions in 8 and 9?
