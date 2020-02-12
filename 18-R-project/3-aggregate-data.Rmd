@@ -97,7 +97,7 @@ For this exercise, we are going to use `df_year`
   
 ## Fact 2: Increasing trade-deficit of the US
 
-For this we will work with `df_year` again
+For this we will work with `df_year` again.
 
 1. drop data from 2020
 2. We want to create a variable `trade_deficit` (imports - exports)
@@ -106,4 +106,24 @@ For this we will work with `df_year` again
 5. Pick a nice color
 6. Add a vertical line to the plot for `year == 2008`
 
+## Fact 3: 400 basis point fall in real Interest rates leading into China Expansion
 
+For this we will work with `df_quarter` again.
+
+1. We need to calculate the inflation rate from the consumer price index (`cpi`) column
+    - find out how to calculate this
+    - look at the first lines of your dataset. What's the problem?
+    - ungroup the dataset first before you repeat the previous step.
+    - look at the first lines of your dataset again.
+    - you now have the quaterly inflation rate
+2. Try to apply the `Return.annualized` function from the `PerformanceAnalytics` package to the newly created `infl` column inside `mutate`
+    - what's the problem?
+3. We will solve this problem in two ways
+    1. Use the function inside `map_dbl` instead (not in a `mutate`)
+        - assing the output to a new column of `df_quarter` called `annum_return`
+    2. Use `Vectorize(Return.annualized)` inside `mutate` instead an save the output to `annum_return2`
+        - What does the function do?
+4. Create a new variable called `real_r` as the difference between `t_bill` and one of your `annum_return` columns
+5. Plot `real_r` against date
+6. Add a vetical line at the date `2002-01-01`
+      - Hint: You have to parse the date first as a `date` and then convert it into a `numerical` value
