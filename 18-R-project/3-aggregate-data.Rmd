@@ -79,4 +79,31 @@ We see that gdp is coded quaterly while the imports and exports are per month. W
   - `cpi`, `t_bill` aggregated as averages
 11. Group `df` annually into a dataframe called `df_year. In this dataset you want
   - `gdp`, `imp_all`, `imp_ch` aggregated as sums (how do you deal with NA's?)
+  
+## Fact 1: Increase of Imports from China and the Rest of the World
+
+For this exercise, we are going to use `df_year`
+
+1. drop data from 2020
+2. We want to create the following three variables:
+  - `global_share = 100 * imp_all / gdp`
+  - `china_share = 100 * imp_ch / gdp`
+  - `nonchina_share = global_share - china_share`
+3. Create the following graph
+  - years between `1991` and `2008`
+  - x-axis: years
+  - y-axis: `china_share` and `nonchina_share` (add to lines to your plot with different colors)
+  - a vertical line for `x == 2008`
+  
+## Fact 2: Increasing trade-deficit of the US
+
+For this we will work with `df_year` again
+
+1. drop data from 2020
+2. We want to create a variable `trade_deficit` (imports - exports)
+3. And a variable `trade_deficit_share` for the share of the trade deficit compared to the gdp
+4. Plot `trade_deficit_share` over time
+5. Pick a nice color
+6. Add a vertical line to the plot for `year == 2008`
+
 
