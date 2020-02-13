@@ -1,0 +1,181 @@
+---
+title: "R Project - Replicating ADH Regressions"
+author:
+  - Ulrich Bergmann
+  - Lachlan Deer
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+In this exercise we are going to replicate a regression from Autor, Dorn, Hansen (AER, 2003): "The China Syndrome: Local Labor Market Effects of Import Competition in the United States". We want to regress the change in wage/salary (`relchg_avg_hhincwage_pc_pw`) on the percent change in import per worker (`d_tradeusch_pw`). You find the final regression coefficient in Column 2 of Panel A of Table 9 of the paper.
+
+Let's first load the necessary packages to read data and do fancy regressions:
+
+```{r}
+library("readr")
+library("tibble")
+library("dplyr")
+library("sandwich")
+library("lmtest")
+library("lfe")
+```
+
+And let's load the data like we always do:
+
+```{r}
+df = read_csv("data/adh_data.csv")
+```
+
+## 1. OLS regression
+
+The core of the paper is looking at what happened to laborer's when theres an increase in us imports from china. 
+Let's try and replicate part of Table 9 - namely the estimate from panel A column 2.
+
+Their y variable is `relchg_avg_hhincwage_pc_pw`. 
+The important x variable is decadal trade between the us and china `d_tradeusch_pw`.
+
+1. Run that simple regression
+
+```{r}
+lm_1 = lm(relchg_avg_hhincwage_pc_pw ~ d_tradeusch_pw, data = df)
+summary(lm_1)
+```
+
+
+2. Now add heteroskedasticity robust standard  (HC1). Hint: Use the `sandwich` and `lmtest` packages
+
+```{r}
+coeftest(lm_1, vcov = vcovHC(lm_1, type="HC1"))
+```
+
+
+
+Now we will start to add extra x variables.
+
+3. Start by adding `t2` - a dummy variable for whether observation is in the second decade. 
+Fit again with HC1 robust standard errors.
+
+```{r}
+lm_2 = lm(relchg_avg_hhincwage_pc_pw ~ d_tradeusch_pw + t2, data = df)
+coeftest(lm_2, vcov = vcovHC(lm_2, type="HC1"))
+```
+
+
+## 2. Clustering
+
+Let us now use clustertered standard errors instead. ADH cluster by `statefip`.
+Hint: use the `felm` command from the `lfe` package
+
+1. Run the basic regression with clustering
+
+```{r}
+felm_1 = felm(relchg_avg_hhincwage_pc_pw ~ d_tradeusch_pw + t2 | 0 | 0 | statefip, data = df)
+summary(felm_1)
+```
+
+
+2. Add the following controls to your last regression:
+    - `l_shind_manuf_cbp`
+    - `l_sh_popedu_c`
+    - `l_sh_popfborn`
+    - `l_sh_empl_f`
+    - `l_sh_routine33`
+    - `l_task_outsource`
+    
+```{r}
+felm_2 = felm(relchg_avg_hhincwage_pc_pw ~ d_tradeusch_pw + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource
+                | 0 | 0 | statefip, data = df)
+summary(felm_2)
+```
+    
+
+
+3. Add region fixed effects to your regression.
+    - First find all variables in the dataset that start with `reg_`
+    - Add these to your last regression
+  
+```{r}
+names(select(df, starts_with("reg_")))
+
+felm_3 = felm(relchg_avg_hhincwage_pc_pw ~ d_tradeusch_pw + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource +
+                reg_midatl + reg_encen + reg_wncen + reg_satl +
+                reg_escen + reg_wscen + reg_mount + reg_pacif
+              | 0 | 0 | statefip, data = df)
+summary(felm_3)
+```
+
+  
+## 3. Instrument Variables
+
+1. Instrument `d_tradeusch_pw` with `d_tradeotch_pw_lag` in your last regression
+
+```{r}
+felm_4 = felm(relchg_avg_hhincwage_pc_pw ~ 1 + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource +
+                reg_midatl + reg_encen + reg_wncen + reg_satl +
+                reg_escen + reg_wscen + reg_mount + reg_pacif
+              | 0 | (d_tradeusch_pw ~ d_tradeotch_pw_lag) | statefip,
+              data = df)
+summary(felm_4)
+```
+
+
+2. Weight your regression by `timepwt48`
+
+The `felm` function is a bit picky on the order of the weights. Let us first try to define weights at the end after the `data` argument like so:
+
+```{r, error = TRUE}
+felm_5 = felm(relchg_avg_hhincwage_pc_pw ~ 1 + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource +
+                reg_midatl + reg_encen + reg_wncen + reg_satl +
+                reg_escen + reg_wscen + reg_mount + reg_pacif
+              | 0 | (d_tradeusch_pw ~ d_tradeotch_pw_lag) | statefip, 
+              data = df,
+              weights = timepwt48)
+summary(felm_5)
+```
+
+Felm didn't find `timepwt48` because it only assumes that columns are in `df` before you define `data = df`. We can solve this in two ways. 
+
+1. A good rule is to have `data = df` as the last argument.
+
+```{r, error = TRUE}
+felm_5 = felm(relchg_avg_hhincwage_pc_pw ~ 1 + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource +
+                reg_midatl + reg_encen + reg_wncen + reg_satl +
+                reg_escen + reg_wscen + reg_mount + reg_pacif
+              | 0 | (d_tradeusch_pw ~ d_tradeotch_pw_lag) | statefip, 
+              weights = timepwt48,
+              data = df)
+summary(felm_5)
+```
+
+2. Alternatively, you can define weights after `data = df`, but then you have to define the weights as `df$timepwft48` like so:
+
+```{r}
+felm_5 = felm(relchg_avg_hhincwage_pc_pw ~ 1 + t2 +
+                l_shind_manuf_cbp + l_sh_popedu_c + l_sh_popfborn +
+                l_sh_empl_f + l_sh_routine33 + l_task_outsource +
+                reg_midatl + reg_encen + reg_wncen + reg_satl +
+                reg_escen + reg_wscen + reg_mount + reg_pacif
+              | 0 | (d_tradeusch_pw ~ d_tradeotch_pw_lag) | statefip, 
+              data = df,
+              weights = df$timepwt48)
+summary(felm_5)
+```
+
+And now we have the numbers reported in Column 2 of Panel A of Table 9 of the paper.
+
+
