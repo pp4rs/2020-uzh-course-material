@@ -1,0 +1,5 @@
+[1] "hello silly boy"
+[1] "Hello John"
+[1] "John 's age: 26"
+[1] "John 's favourite number is: 123"
+[1] 49
